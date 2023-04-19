@@ -4,15 +4,44 @@ using UnityEngine;
 
 public class PatrolController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float radioDeteccion = 5f;
+    public float tiempoEspera = 5f;
+    public GameObject personajePrincipal;
 
-    // Update is called once per frame
+    bool personajeDentroDelRadio = false;
+
     void Update()
     {
+        personajeDentroDelRadio = Physics.CheckSphere(transform.position, radioDeteccion, LayerMask.GetMask("Personaje"));
+
+        if (personajeDentroDelRadio)
+        {
+            Invoke("ActivarContador", tiempoEspera);
+        }
+        else
+        {
+            CancelInvoke("ActivarContador");
+        }
+    }
+
+    void ActivarContador()
+    {
         
+
+        Invoke("PerderPartida", tiempoEspera);
+    }
+
+    void PerderPartida()
+    {
+       
     }
 }
+
+
+
+
+
+
+        
+    
+
